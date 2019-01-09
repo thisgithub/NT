@@ -6,6 +6,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.media.AudioAttributes;
 import android.net.Uri;
 import android.os.Build;
 
@@ -24,7 +25,8 @@ public class NotificationUtils extends ContextWrapper {
     @SuppressLint("NewApi")
     public void createNotificationChannel() {
         NotificationChannel channel = new NotificationChannel(id, name, NotificationManager.IMPORTANCE_HIGH);
-
+        channel.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.baidu),
+                new AudioAttributes.Builder().build());
         getManager().createNotificationChannel(channel);
     }
 
