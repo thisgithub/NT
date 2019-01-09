@@ -1,10 +1,12 @@
 package com.example.wt.nt;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.net.Uri;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
@@ -19,8 +21,10 @@ public class NotificationUtils extends ContextWrapper {
         super(base);
     }
 
+    @SuppressLint("NewApi")
     public void createNotificationChannel() {
         NotificationChannel channel = new NotificationChannel(id, name, NotificationManager.IMPORTANCE_HIGH);
+
         getManager().createNotificationChannel(channel);
     }
 
@@ -31,11 +35,13 @@ public class NotificationUtils extends ContextWrapper {
         return manager;
     }
 
+    @SuppressLint("NewApi")
     public Notification.Builder getChannelNotification(String title, String content) {
         return new Notification.Builder(getApplicationContext(), id)
                 .setContentTitle(title)
                 .setContentText(content)
                 .setSmallIcon(R.drawable.ic_launcher_background)
+
                 .setAutoCancel(true);
     }
 
@@ -44,6 +50,8 @@ public class NotificationUtils extends ContextWrapper {
                 .setContentTitle(title)
                 .setContentText(content)
                 .setSmallIcon(R.drawable.ic_launcher_background)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.baidu))
                 .setAutoCancel(true);
     }
 
